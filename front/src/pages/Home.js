@@ -60,7 +60,7 @@ export default function App() {
   };
   
   return (
-    <div className='flex w-full h-[130vh] absolute left-0 mb-10 pt-10 lg:pt-10 bg-[#F8F8F8] justify-center'>
+    <div className='mt-1 flex w-full h-[130vh] absolute left-0 mb-10 pt-10 lg:pt-10 bg-gradient-to-r from-purple-500 to-pink-500 bg-gradient-to-l hover:bg-gradient-to-r bg-cover bg-center justify-center'>
       <div className=' bg-white rounded-lg xl:h-[115vh] flex gap-6 flex-wrap justify-center items-center p-14 pt-6'>
 {/* VIDEO */}
         <div>

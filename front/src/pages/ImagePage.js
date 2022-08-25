@@ -2,31 +2,52 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import ImageCard from '../components/ImageCard'
 import NoResults from '../components/NoResults'
+import ServerError from '../components/ServerError'
 
 const ImagePage = () => {
-const[data,setData]= useState(null)
-const[error,setError]= useState(0)
+const[data,setData]= useState('')
+const[error,setError]= useState(false)
+const[loading,setLoading]=useState(true)
 
   useEffect(() => {
+
   const fetchImages = async() => {
-    const res = await fetch(`http://localhost:8080/`).catch((err)=>console.log(err))
-    const json = await res.json().then((json)=>{setData(json)})
+    try {
+
+      const res = await fetch(`http://localhost:8080/`)
+      const json = await res.json()
+      .then((json)=>{setData(json)})
+      .then((json)=>{setLoading(false)})
+
+    } catch (err) {
+
+      setError(true)
+      setLoading(false)
+      // console.warn(err)
+    }
   }
     fetchImages()
   }, [])
-  
-  return (
-    <div className='pt-5 pl-10 bg-[#e4e4e7] xl:grid grid-cols-3'>
-      { data ? (
-        data.map((item) => (
-          <ImageCard title = {item.Title} imgUrl = {item.ImageUrl} key ={item._id} />
-        ))
-      ) : (
-        <NoResults />
-      )}
-    </div>
+  // console.log(loading)
 
-    
+  return (
+    <div className='pt-5 pb-10 pl-10 bg-gradient-to-r from-purple-500 to-pink-500 bg-gradient-to-l hover:bg-gradient-to-r bg-cover bg-center mt-1 xl:grid grid-cols-3'>
+    {!loading && (
+    <>
+      {error? 
+      <ServerError/>  : 
+      <>
+      { data.length ? (
+        data.map((item) => (
+          <ImageCard title = {item.Title} imgUrl = {item.ImageUrl} vidUrl = {item.VideoUrl} id ={item._id} key ={item._id} />
+        ))
+        ) : (
+          <NoResults />
+        )}
+      </>}
+    </>
+    )}
+    </div>
   )
 }
 

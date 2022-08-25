@@ -9,6 +9,7 @@ const dbConnect = require('./mongodb');
 const app = express();
 app.use(express.json());
 const cors = require('cors');
+const { ObjectId } = require("mongodb");
 app.use(cors())
 
 const cpUpload = upload.fields([{ name: 'imageAsset', maxCount: 1 }, { name: 'videoAsset', maxCount: 1 }])
@@ -58,11 +59,18 @@ app.post('/', cpUpload, async (req, res) => {
 
 app.get('/', cors(), async (req,res) => {
   let data = await dbConnect();
-  const result = await data.find().project({ Title: 1, ImageUrl: 1 }).toArray();
+  const result = await data.find().project({ Title: 1, ImageUrl: 1, VideoUrl: 1 }).toArray();
   res.send(result)
 });
 
-
+app.get('/getvideo/:id', cors(), async (req,res) => {
+  let data = await dbConnect();
+  var o_id = new ObjectId(req.params.id)
+  let query =  {_id: o_id}
+  let options ={projection: {VideoUrl: 1, _id: 0}}
+  const result = await data.findOne(query,options);
+  res.send(result)
+});
 
 app.listen(8080, () => {
   console.log('Server Started on Port 8080 ....');
