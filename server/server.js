@@ -13,7 +13,7 @@ app.use(cors())
 
 const cpUpload = upload.fields([{ name: 'imageAsset', maxCount: 1 }, { name: 'videoAsset', maxCount: 1 }])
 app.post('/', cpUpload, async (req, res) => {
-  res.status(200).send("RES BY POST REQ ")
+
     const empObj = Object.values(req.files).every(value => {
       if (value === null || value === undefined || value === '') {
         return true;
@@ -23,12 +23,12 @@ app.post('/', cpUpload, async (req, res) => {
 
     if (!empObj) {
       try {
-        console.log("request 111 executed");
+        // console.log("request 111 executed");
         const result1 = await cloudinary.uploader.upload(req.files['imageAsset'][0].path, {
           resource_type: "auto"
         });
         const resImgUrl = result1.secure_url;
-        console.log("request 222 executed");
+        // console.log("request 222 executed");
         const result2 = await cloudinary.uploader.upload(req.files['videoAsset'][0].path, {
           resource_type: "auto"
         });
@@ -45,6 +45,7 @@ app.post('/', cpUpload, async (req, res) => {
           }
         ]);
         // console.log("Query Executed")
+        res.send("done ")
       } catch (error) {
         console.log(error);
       }
@@ -54,8 +55,11 @@ app.post('/', cpUpload, async (req, res) => {
     }
   })
 
-app.get('/', cors(), (req,res) => {
-  res.send("abc")
+
+app.get('/', cors(), async (req,res) => {
+  let data = await dbConnect();
+  const result = await data.find().project({ Title: 1, ImageUrl: 1 }).toArray();
+  res.send(result)
 });
 
 

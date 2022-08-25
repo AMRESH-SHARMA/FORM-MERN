@@ -43,7 +43,7 @@ export default function App() {
         body: formData,
       })
       .catch((err) => {if(err) {setSavingPost(false);alert("server error")}})
-      .then((res)=>{if(res.ok){navigate("/a", { replace: false })}})
+      .then((res)=>{if(res.ok){navigate("/page2", { replace: false })}})
 
   } else{
     alert("Please Fill All Fields")
