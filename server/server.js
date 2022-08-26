@@ -1,4 +1,5 @@
 require("dotenv").config()
+const PORT = 5000
 const express = require('express');
 const cloudinary = require("./utils/cloudinary");
 const upload = require("./utils/multer");
@@ -72,6 +73,6 @@ app.get('/getvideo/:id', cors(), async (req,res) => {
 });
 
 
-app.listen( 5000, () => {
+app.listen( PORT, () => {
   console.log(`Server Started on Port ${PORT}`);
 });
