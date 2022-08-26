@@ -1,6 +1,8 @@
 # HOW TO USE?
 ```
-Internet connection: on
+Clone this repo
+Fill env variables [inside server directory]
+Internet connection: required
 Activate: mongodb sever
 RUN: npm run start [inside front directory]
 RUN: node server.js [inside server directory]
