@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import {Card,CardHeader} from "@material-tailwind/react";
+import ServerError from '../components/ServerError';
   
 
 const VideoPage = () => {
@@ -23,7 +24,7 @@ const VideoPage = () => {
   useEffect(() => {
   const fetchVideo = async() => {
     try {
-      const res = await fetch(`http://localhost:8080/getvideo/${slug}`)
+      const res = await fetch(`http://localhost:5000/getvideo/${slug}`)
       const json = await res.json()
       .then((json)=>{setData(json)})
       .then((json)=>{setLoading(false)})
@@ -35,11 +36,12 @@ const VideoPage = () => {
     }
   }
   fetchVideo()
-  }, [])
+  }, [slug])
 
   return (
     <>
-    {!loading && (
+    {!error?<>
+      {!loading && (
       <div className='bg-gradient-to-r from-purple-500 to-pink-500 bg-gradient-to-l hover:bg-gradient-to-r bg-cover bg-center'>
         <div className='relative'>
           <div className='pt-5 h-[88vh] mt-1 pl-20'>
@@ -58,7 +60,8 @@ const VideoPage = () => {
         </div>
       </div>
      ) 
-    }
+    }</> : <ServerError/>}
+
   </>
   )
 }

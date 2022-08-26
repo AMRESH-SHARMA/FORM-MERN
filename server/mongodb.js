@@ -1,7 +1,15 @@
-const {MongoClient} = require('mongodb');
-const url='mongodb://localhost:27017';
+
+
 const databaseName="userdb";
-const client= new MongoClient(url);
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = process.env.MONGODB_URI;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+// const {MongoClient} = require('mongodb');
+// const url='mongodb://localhost:27017';
+// const databaseName="userdb";
+// const client= new MongoClient(url);
+
 
 async function dbConnect() {
 

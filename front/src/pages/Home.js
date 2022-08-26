@@ -38,7 +38,7 @@ export default function App() {
       formData.append("videoAsset", videoAsset);
       formData.append("title", title);
       formData.append("description", description);
-      const res = await fetch(`http://localhost:8080/`, {
+      const res = await fetch("http://localhost:5000/formdata", {
         method: "POST",
         body: formData,
       })

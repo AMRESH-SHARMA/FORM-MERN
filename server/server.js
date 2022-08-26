@@ -2,18 +2,17 @@ require("dotenv").config()
 const express = require('express');
 const cloudinary = require("./utils/cloudinary");
 const upload = require("./utils/multer");
-// const storage = multer.memoryStorage()
-// const upload = multer()
 const dbConnect = require('./mongodb');
 
 const app = express();
 app.use(express.json());
 const cors = require('cors');
-const { ObjectId } = require("mongodb");
 app.use(cors())
+const { ObjectId } = require("mongodb");
 
 const cpUpload = upload.fields([{ name: 'imageAsset', maxCount: 1 }, { name: 'videoAsset', maxCount: 1 }])
-app.post('/', cpUpload, async (req, res) => {
+
+app.post('/formdata', cpUpload, async (req, res) => {
 
     const empObj = Object.values(req.files).every(value => {
       if (value === null || value === undefined || value === '') {
@@ -57,7 +56,7 @@ app.post('/', cpUpload, async (req, res) => {
   })
 
 
-app.get('/', cors(), async (req,res) => {
+app.get('/formdata', cors(),async (req,res) => {
   let data = await dbConnect();
   const result = await data.find().project({ Title: 1, ImageUrl: 1, VideoUrl: 1 }).toArray();
   res.send(result)
@@ -72,6 +71,7 @@ app.get('/getvideo/:id', cors(), async (req,res) => {
   res.send(result)
 });
 
-app.listen(8080, () => {
-  console.log('Server Started on Port 8080 ....');
+
+app.listen( 5000, () => {
+  console.log(`Server Started on Port ${PORT}`);
 });

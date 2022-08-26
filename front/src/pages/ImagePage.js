@@ -13,22 +13,20 @@ const[loading,setLoading]=useState(true)
 
   const fetchImages = async() => {
     try {
-
-      const res = await fetch(`http://localhost:8080/`)
+      const res = await fetch("http://localhost:5000/formdata")
       const json = await res.json()
       .then((json)=>{setData(json)})
       .then((json)=>{setLoading(false)})
-
+      // .then((res)=>{console.log("response",(res))})
     } catch (err) {
 
       setError(true)
       setLoading(false)
-      // console.warn(err)
+      console.warn(err)
     }
   }
     fetchImages()
   }, [])
-  // console.log(loading)
 
   return (
     <div className='pt-5 pb-10 pl-10 bg-gradient-to-r from-purple-500 to-pink-500 bg-gradient-to-l hover:bg-gradient-to-r bg-cover bg-center mt-1 xl:grid grid-cols-3'>
