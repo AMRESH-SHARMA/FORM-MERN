@@ -3,7 +3,7 @@
 Internet connection: on
 Activate: mongodb sever
 RUN: npm run start [inside front directory]
-RUN: nodemon server.js [inside server directory]
+RUN: node server.js [inside server directory]
 ```
 ____________________________________________________________________________________________
 
