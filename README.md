@@ -68,6 +68,9 @@ ________________________________________________________________________________
 FETCH API hit get request to nodeserver>> Nodeserver find video url stored on mongodb response back to react>> video tag populate video from cloudinary src ={URL} 
 On populating video it get autoplay.
 
+__
+#Tip
 
+Can also use Mongodb Atlas as a hosted database for hosting purpose. Go inside server/mongodb.js for further process.
 
 
